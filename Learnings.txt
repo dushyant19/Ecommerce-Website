@@ -1,0 +1,5 @@
+Whenever You create a List Component basically, a grid That's where state most probably lives.
+
+whenever uou map a list. Always give a keya s a prop
+
+destructuring can be apllied to objects anywhere
