@@ -1,0 +1,15 @@
+.listpreview {
+    display: flex;
+    margin-bottom: 30px;
+    justify-content: space-around;
+  
+    .title {
+      font-size: 28px;
+      margin-bottom: 25px;
+    }
+  
+    .preview {
+      display: flex;
+      justify-content: space-between;
+    }
+  }

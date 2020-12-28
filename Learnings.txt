@@ -3,3 +3,12 @@ Whenever You create a List Component basically, a grid That's where state most p
 whenever uou map a list. Always give a keya s a prop
 
 destructuring can be apllied to objects anywhere
+
+You Can Make A handle change for one input and use it for everyone using name and value
+this.setState(
+    {[name]:value}
+)
+
+When a user signs in, many component would require the information about the user so, We need the store the user
+as a state in our app component
+In ComponentDidMount set that state of currentuser

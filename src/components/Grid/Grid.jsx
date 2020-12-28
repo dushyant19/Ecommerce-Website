@@ -3,54 +3,57 @@ import './grid.scss'
 import MenuItem from '../MenuItem/MenuItem'
 
 export class Grid extends Component {
-     
-    constructor(props){
-        super(props)
-        this.state = [
-            {
-              title: 'hats',
-              imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
-              id: 1,
-              linkUrl: 'shop/hats'
-            },
-            {
-              title: 'jackets',
-              imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-              id: 2,
-              linkUrl: 'shop/jackets'
-            },
-            {
-              title: 'sneakers',
-              imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
-              id: 3,
-              linkUrl: 'shop/sneakers'
-            },
-            {
-              title: 'womens',
-              imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-              size: 'large',
-              id: 4,
-              linkUrl: 'shop/womens'
-            },
-            {
-              title: 'mens',
-              imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-              size: 'large',
-              id: 5,
-              linkUrl: 'shop/mens'
-            }
-          ];
-        
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      data:
+      [
+        {
+          title: 'hats',
+          imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
+          id: 1,
+          linkUrl: 'shop/hats'
+        },
+        {
+          title: 'jackets',
+          imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
+          id: 2,
+          linkUrl: 'shop/jackets'
+        },
+        {
+          title: 'sneakers',
+          imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
+          id: 3,
+          linkUrl: 'shop/sneakers'
+        },
+        {
+          title: 'womens',
+          imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
+          size: 'large',
+          id: 4,
+          linkUrl: 'shop/womens'
+        },
+        {
+          title: 'mens',
+          imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
+          size: 'large',
+          id: 5,
+          linkUrl: 'shop/mens'
+        }
+      ]
     }
+  }
+  
     render() {
-        const list = this.state;
+        const list = this.state.data;
         return (
             <div className="grid">
                 {
                     list.map(
                         item=>{
                             return (
-                                <MenuItem title={item.title} url={item.imageUrl} size={item.size}/>
+                                <MenuItem key={item.id} title={item.title} url={item.imageUrl} size={item.size} link={item.linkUrl} />
                             )
                         }
                     )
@@ -58,6 +61,7 @@ export class Grid extends Component {
             </div>
         )
     }
+
 }
 
 export default Grid

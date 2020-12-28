@@ -1,0 +1,13 @@
+body{
+    padding: 20px 60px;
+}
+
+a{
+    text-decoration: none;
+    outline: none !important;
+    color: black;
+}
+
+*{
+    box-sizing: border-box;
+}
