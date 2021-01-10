@@ -16,7 +16,7 @@ export class ShopPage extends Component {
                     items.map(item=>(
                         <div>
                         <h1>{item.title}</h1>
-                        <Preview key={item.id} title={item.title} items={item.items}/>
+                        <Preview key={`item.id-${item.title}`} title={item.title} items={item.items}/>
                         </div>
                     ))
                 }

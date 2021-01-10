@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import FormInput from '../../components/FormInput/FormInput'
 import './Signin.scss'
 import CustomButton from '../../components/CustomButton/Button'
+import {googleSignIn} from '../../firebase/config'
+import firebase from 'firebase'
 
 export class Signin extends Component {
     constructor(props) {
@@ -15,6 +17,13 @@ export class Signin extends Component {
 
     handleSubmit = (event)=>{
         event.preventDefault()
+        const {email,password} = this.state;
+        try{
+            const {user} = firebase.auth().signInWithEmailAndPassword(email,password);
+        }
+        catch(err){
+            console.error(err.message)
+        }
     }
     handleChange = (event)=>{
         const {value,name} = event.target
@@ -29,10 +38,10 @@ export class Signin extends Component {
                     <FormInput label="email" handleChange={this.handleChange} type="email" name="email" value={this.state.email} required/>
                     <FormInput label="password" handleChange={this.handleChange} type="password" name="password" value={this.state.password} required/>
                     <div className="buttons">
-                    <CustomButton type="submit" name="submit">
+                    <CustomButton handleClick={this.handleSubmit} type="submit" name="submit">
                         Sign In
                     </CustomButton>
-                    <CustomButton GoogleSignIn>
+                    <CustomButton type="button" handleClick = {googleSignIn} GoogleSignIn>
                         Sign In With Google
                     </CustomButton>
                     </div>

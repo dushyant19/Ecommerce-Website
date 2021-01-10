@@ -3,8 +3,18 @@ import './headers.scss'
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 
 import {Link,BrowserRouter,Router,Switch} from 'react-router-dom'
-import { auth } from '../../firebaase/firebase.utils'
 import Button from '../CustomButton/Button'
+import firebase from 'firebase/app'
+
+const logout = async ()=>{
+    try{
+        await firebase.auth().signOut()
+        console.log('sign out successful')
+    }
+    catch(err){
+        console.log('error while signing out')
+    }
+}
 
 function Header({user}) {
     console.log(user)
@@ -17,12 +27,7 @@ function Header({user}) {
                 <Link className="option" to = '/shop'>Shop</Link>
                 <Link className="option" to = '/contact'>Contact</Link>
                 {
-                    user?(
-                        <div className="option" onClick={()=>auth.signOut()}>
-                            Sign Out
-                        </div>
-                    ):
-                    (<Link className="option" to = '/accounts'>Sign in</Link>)
+                    user?(<React.Fragment><div className="option">{user.displayName?user.displayName.trim().split(" ")[0]:'Unknown'}</div><div className="option" onClick={logout} >Sign out</div></React.Fragment>):(<Link className="option" to = '/accounts'>Sign In</Link>)
                 }
             </div>
             </div>

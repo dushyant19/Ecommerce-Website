@@ -1,9 +1,9 @@
 import React from 'react'
 import './button.scss'
 
-function Button({GoogleSignIn,children,...otherprops}) {
+function Button({handleClick,GoogleSignIn,children,...otherprops}) {
     return (
-        <button className={`custom-button ${GoogleSignIn?'google-sign-in':''}`} {...otherprops}>
+        <button onClick={handleClick} className={`custom-button ${GoogleSignIn?'google-sign-in':''}`} {...otherprops}>
             {children}
         </button>
     )
