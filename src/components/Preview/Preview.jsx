@@ -9,7 +9,7 @@ function Preview({title,items}) {
                 {
                     items.filter((item,idx)=>idx<4)
                         .map(item=>(
-                        <Item className="preview" key={item.id} title={item.name} price={item.price} url={item.imageUrl}/>
+                        <Item className="preview" key={item.id} item={item}/>
                     ))
                 }
             </div>

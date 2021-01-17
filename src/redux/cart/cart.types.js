@@ -1,0 +1,9 @@
+const CartActionTypes = {
+    SET_DROPDOWN : 'SET_DROPDOWN',
+    ADD_TO_CART : 'ADD_TO_CART',
+    REMOVE_FROM_CART:'REMOVE_FROM_CART',
+    DECREASE_COUNT:'DECREASE_COUNT',
+    INCEREASE_COUNT:'INCREASE_COUNT'
+}
+
+export default CartActionTypes;

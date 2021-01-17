@@ -11,7 +11,8 @@ export class Signin extends Component {
     
         this.state = {
              email:'',
-             password:''
+             password:'',
+             error:''
         }
     }
 
@@ -19,10 +20,18 @@ export class Signin extends Component {
         event.preventDefault()
         const {email,password} = this.state;
         try{
-            const {user} = firebase.auth().signInWithEmailAndPassword(email,password);
+            const user = firebase.auth().signInWithEmailAndPassword(email,password);
+            console.table(user)
         }
         catch(err){
+            console.log('entewring catch')
             console.error(err.message)
+            this.setState({
+                ...this.state,
+                error:'Invalid Credentials'
+            },()=>{
+                console.log(this.state)
+            })
         }
     }
     handleChange = (event)=>{
@@ -34,6 +43,7 @@ export class Signin extends Component {
             <div className="signin">
                 <h1>I already have an account</h1>
                 <span>Sign in to continue</span>
+                <span className='error'>{this.state.error}</span>
                 <form onSubmit={this.handleSubmit} method="POST">
                     <FormInput label="email" handleChange={this.handleChange} type="email" name="email" value={this.state.email} required/>
                     <FormInput label="password" handleChange={this.handleChange} type="password" name="password" value={this.state.password} required/>

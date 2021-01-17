@@ -12,34 +12,32 @@ import firebase from 'firebase/app'
 import {adduser} from './firebase/config'
 import {getuser} from './firebase/config'
 import LazyLoad from 'react-lazyload'
+import {connect} from 'react-redux'
+import setCurrentUser from './redux/user/user.action'
+import {SetDropdownAction} from './redux/cart/cart.actions'
+import {createStructuredSelector} from 'reselect'
+import {selectCurrentUser} from './redux/user/user.selectors'
+import Checkout from './Pages/CheckoutPage/Checkout'
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
   
-    this.state = {
-       currentuser:null,
-    }
-}
-
 unsubscribe = null
-
 componentDidMount(){
+  const {setCurrentUser} = this.props
   this.unsubscribe = firebase.auth().onAuthStateChanged(async (user)=> {
     if(user){
       const useref = await adduser(user)
       useref.onSnapshot(async (snapshot)=>{
-      await this.setState({
+      setCurrentUser({
         currentuser:{
           id:snapshot.id,
           ...snapshot.data()
         }
       })
-    })
-    console.log(this.state)
+    })    
     }
     else{
-      this.setState({
+      setCurrentUser({
         currentuser:null
       })
     }
@@ -51,11 +49,16 @@ componentWillUnmount(){
 }
 
 render() {
-  console.log("state is ",this.state)
+  console.log('In app')
+  let currentuser = this.props.currentuser
+  currentuser = currentuser.currentuser
+  const toggle = this.props.toggle
+  let hidden = this.props.hidden
+  console.log(currentuser)
     return (
-      <div className="App">
+      <div className="App" >
         <BrowserRouter>
-          <Header user = {this.state.currentuser}/>
+          <Header/>
             <Switch>
               <Route key={window.location.pathname} exact path="/"  >
                 <LazyLoad height={100} offset={1000000} once>
@@ -72,9 +75,12 @@ render() {
                   <Shop/>
                 </LazyLoad>
               </Route>
+              <Route exact path = '/checkout'>
+                <Checkout/>
+              </Route>
               <Route key={window.location.pathname} exact path = "/accounts">
                 <LazyLoad height={200} offset={100} once>
-                {this.state.currentuser?<Redirect to="/"/>:<Auth/>}
+                {currentuser?<Redirect to="/"/>:<Auth/>}
                 </LazyLoad>
               </Route>
             </Switch>
@@ -82,7 +88,17 @@ render() {
       </div>
     )
   }
-  
 }
 
-export default App
+const mapStateToProps = createStructuredSelector({
+  currentuser:selectCurrentUser
+})
+
+const mapDispatchToProps = (dispatch)=>{
+   return {
+     setCurrentUser:(user)=>dispatch(setCurrentUser(user)),
+     toggle:()=>dispatch(SetDropdownAction())
+   }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(App)
